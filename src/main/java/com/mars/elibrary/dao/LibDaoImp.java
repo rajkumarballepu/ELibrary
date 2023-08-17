@@ -8,15 +8,19 @@ import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Component;
 
 import com.mars.elibrary.entity.Book;
+import com.mars.elibrary.entity.Borrower;
 import com.mars.elibrary.entity.Librarian;
 @Component
 public class LibDaoImp implements LibDao {
+	
+	@Autowired
+	private RowMapper<Borrower> borrowerMapper;
 
 	@Autowired
 	private JdbcTemplate template;
 
-//	@Autowired
-//	private RowMapper<Book> bookMapper;
+	@Autowired
+	private RowMapper<Book> bookMapper;
 	
 	@Autowired
 	private RowMapper<Librarian> librarianMapper;
@@ -59,6 +63,45 @@ public class LibDaoImp implements LibDao {
 		template.update("insert into libbooks (name,col,author,publisher,description,quantity) values (?,?,?,?,?,?)", 
 				book.getName(),book.getColumn(),book.getAuthor(),book.getPublisher(),book.getDescription(),book.getQuantity());
 		
+	}
+
+	@Override
+	public List<Book> getBooks() {
+		List<Book> books = template.query("select * from libbooks", bookMapper);
+		return books;
+		
+	}
+
+	@Override
+	public Book getBook(int book_id) {
+		Book book = template.queryForObject("select * from libbooks where id = ?", bookMapper, book_id);
+		return book;
+	}
+
+	@Override
+	public void issueBook(Borrower borrower) {
+		template.update("insert into borrowers (name, mobile, date, book_id, book_name) values (?,?,?,?,?)",
+				borrower.getName(),borrower.getMobile(),borrower.getDate(),borrower.getBook_id(),borrower.getBook_name());
+		int issued = this.getBook(borrower.getBook_id()).getIssued();
+		issued++;
+		template.update("update libbooks set issued = ? where id = ?", issued, borrower.getBook_id());
+	}
+
+	@Override
+	public List<Borrower> getBorrowers() {
+		List<Borrower> borrowers = template.query("select * from borrowers", borrowerMapper);
+		return borrowers;
+	}
+
+	@Override
+	public int returnBook(Borrower borrower) {
+		int update = template.update("delete from borrowers where book_id = ? and name = ? and mobile = ?", 
+				borrower.getBook_id(), borrower.getName(),borrower.getMobile());
+		if (update != 0) {
+			int issued = this.getBook(borrower.getBook_id()).getIssued();
+			template.update("update libbooks set issued = ? where id = ?", --issued, borrower.getBook_id());
+		}
+		return update;
 	}
 
 }

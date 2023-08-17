@@ -16,12 +16,13 @@ public class BookRowMap implements RowMapper<Book> {
 		
 		Book book = new Book();
 		book.setId(rs.getInt("id"));
-		book.setName(rs.getString("bname"));
-		book.setColumn(rs.getString("column"));;
+		book.setName(rs.getString("name"));
+		book.setColumn(rs.getString("col"));;
 		book.setAuthor(rs.getString("author"));
 		book.setPublisher(rs.getString("publisher"));
 		book.setQuantity(rs.getInt("quantity"));
 		book.setDescription(rs.getString("description"));
+		book.setIssued(rs.getInt("issued"));
 		
 		return book;
 	}

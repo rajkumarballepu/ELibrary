@@ -2,7 +2,7 @@
 
 <head>
 	<title>E- LIBRARY-- ADD BOOK</title>
-	
+	<link rel="shortcut icon" th:href="@{/images/icon.png}" type="image/x-icon">
 	<!-- Bootstrap -->
 	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
 </head>
@@ -21,20 +21,20 @@
 	          <a class="nav-link" aria-current="page" th:href="@{/librarianHome}">Home</a>
 	        </li>
 	        <li class="nav-item">
-	          <a class="nav-link active" href="/addBook?message=">Add Book</a>
+	          <a class="nav-link active" href="/librarian/addBook?message=">Add Book</a>
 	        </li>
 	        <li class="nav-item">
-	          <a class="nav-link" href="#">View Book</a>
+	          <a class="nav-link" href="/librarian/viewBooks">View Book</a>
 	        </li>
 	        <li class="nav-item">
-	          <a class="nav-link" href="#">Issue Book</a>
+	          <a class="nav-link" href="/librarian/issueBook?m=">Issue Book</a>
 	        </li>
 	        <li class="nav-item">
-	          <a class="nav-link" href="#">Return Book</a>
+	          <a class="nav-link" href="/librarian/returnBook?m=">Return Book</a>
 	        </li>
 	        
 	        <li class="nav-item">
-	          <a class="nav-link" href="/logout">Logout</a>
+	          <a class="nav-link" href="/librarian/logout">Logout</a>
 	        </li>
 	      </ul>
 	    </div>

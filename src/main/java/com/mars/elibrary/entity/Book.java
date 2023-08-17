@@ -1,7 +1,13 @@
 package com.mars.elibrary.entity;
 
 public class Book {
-	private int id, quantity;
+	private int id, quantity,issued;
+	public int getIssued() {
+		return issued;
+	}
+	public void setIssued(int issued) {
+		this.issued = issued;
+	}
 	private String name, column, author, publisher, description;
 	public int getId() {
 		return id;

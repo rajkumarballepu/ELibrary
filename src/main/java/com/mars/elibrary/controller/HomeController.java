@@ -24,8 +24,8 @@ public class HomeController {
 	@RequestMapping("/login") 
 	public ModelAndView home(@RequestParam("message") String message) {
 		ModelAndView andView = new ModelAndView();
-		andView.setViewName("login");
 		andView.addObject("message", message);
+		andView.setViewName("login");
 		return andView;
 	}
 	
@@ -72,6 +72,7 @@ public class HomeController {
 	
 	@PostMapping("/addLibrarian")
 	public String addLibrarian(@ModelAttribute("librarian") Librarian librarian) {
+		librarian.setName(librarian.getName().toUpperCase());
 		dao.addLibrarian(librarian);
 		return "admin";
 	}

@@ -1,0 +1,86 @@
+<html xmlns:th="https://thymeleaf.org">
+
+<head>
+	<title>E-LIBRARY--RETURN BOOK</title>
+	<link rel="shortcut icon" th:href="@{/images/icon.png}" type="image/x-icon">
+	<!-- Bootstrap -->
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+		integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+</head>
+
+<body>
+	<!-- Navbar -->
+	<nav class="navbar navbar-expand-lg navbar-light bg-light">
+		<div class="container-fluid">
+			<a class="navbar-brand" href="#">E - Library</a>
+			<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+				aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+				<span class="navbar-toggler-icon"></span>
+			</button>
+			<div class="collapse navbar-collapse" id="navbarNav">
+				<ul class="navbar-nav">
+					<li class="nav-item">
+						<a class="nav-link" aria-current="page" th:href="@{/librarianHome}">Home</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link" href="/librarian/addBook?message=">Add Book</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link" href="/librarian/viewBooks">View Book</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link" href="/librarian/issueBook?m=">Issue Book</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link active" href="/librarian/returnBook?m=">Return Book</a>
+					</li>
+
+					<li class="nav-item">
+						<a class="nav-link" href="/librarian/logout">Logout</a>
+					</li>
+				</ul>
+			</div>
+		</div>
+	</nav>
+
+	<form class="d-flex flex-column w-100 align-items-center" action="/returnBook/book" method="post">
+
+		<div class="row w-50 align-items-center">
+			<div class="mb-3 w-100 d-flex">
+				<h1 class="w-100 text-center">Return Book</h1>
+			</div>
+			<div class="mb-3 w-100 d-flex justify-content-between">
+				<label for="exampleFormControlInput1" class="form-label">Select Book</label>
+				<select id="books" name="book_id" class="w-75">
+					<option value="0">Select Book</option>
+					<option th:each="book : ${books}" th:if="${book.issued > 0}" th:value="${book.id}"
+						th:text="${book.name}"></option>
+				</select>
+			</div>
+		</div>
+		<div class="row w-50 align-items-center">
+			<div class="mb-3 w-100 d-flex justify-content-between">
+				<label for="exampleFormControlInput1" class="form-label">Enter Borrower</label>
+				<input name="name" type="text" class="w-75" />
+			</div>
+			<div class="mb-3 w-100 d-flex justify-content-between">
+				<label for="exampleFormControlInput1" class="form-label">Enter Mobile</label>
+				<input name="mobile" type="text" class="w-75" />
+			</div>
+		</div>
+
+		<div class="mb-3 w-100 d-flex justify-content-center">
+			<input type="submit" class="btn-primary rounded-2" value="Return Book" />
+		</div>
+		<div class="mb-3 w-100 d-flex justify-content-center">
+			<p th:text="${m}"></p>
+		</div>
+	</form>
+
+	<script th:src="@{/js/returnFormscript.js}"></script>
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"
+		integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm"
+		crossorigin="anonymous"></script>
+</body>
+
+</html>
